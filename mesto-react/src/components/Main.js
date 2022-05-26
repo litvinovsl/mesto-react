@@ -53,18 +53,6 @@ function Main(props) {
                 ))}
             </section>
 
-            {/* {cards.map((card, i) => (
-                <div key={i} className="element">
-                    <button type="button" className="element__delete"></button>
-                    <img className="element__image" src={card.link} alt="картинка" />
-                    <p className="element__name">{card.name}</p>
-                    <div className="element__counter-and-like">
-                        <button type="button" className="element__like"></button>
-                        <p className="element__like-counter">0</p>
-                    </div>
-                </div>
-            ))} */}
-
         </main>
     );
 }
