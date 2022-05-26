@@ -1,5 +1,6 @@
 import React from 'react';
-import api from '../utils/Api.js'
+import api from '../utils/Api.js';
+import Card from './Card'
 import buttomEdit from '../images/buttom-edit.svg';
 import buttomPlus from '../images/buttom-plus.svg';
 
@@ -13,6 +14,7 @@ function Main(props) {
     React.useEffect(() => {
         api.getPageData()
             .then(([cardsData, userData]) => {
+                console.log(cardsData);
                 setUserName(userData.name);
                 setUserDescription(userData.about);
                 setUserAvatar(userData.avatar);
@@ -44,21 +46,14 @@ function Main(props) {
                     <img className="profile__add-button-img" src={buttomPlus} alt="добавить картинку" />
                 </button>
             </section>
+
             <section className="elements">
-                {cards.map((card, i) => (
-                    <div key={i} className="element">
-                        <button type="button" className="element__delete"></button>
-                        <img className="element__image"  src={card.link} alt={card.name} />
-                        <p className="element__name">{card.name}</p>
-                        <div className="element__counter-and-like">
-                            <button type="button" className="element__like"></button>
-                            <p className="element__like-counter">{card.likes.length}</p>
-                        </div>
-                    </div>
+                {cards.map((card) => (
+                    <Card key={card._id} props={card} />
                 ))}
             </section>
 
-            {cards.map((card, i) => (
+            {/* {cards.map((card, i) => (
                 <div key={i} className="element">
                     <button type="button" className="element__delete"></button>
                     <img className="element__image" src={card.link} alt="картинка" />
@@ -68,7 +63,7 @@ function Main(props) {
                         <p className="element__like-counter">0</p>
                     </div>
                 </div>
-            ))}
+            ))} */}
 
         </main>
     );
