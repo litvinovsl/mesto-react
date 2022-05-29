@@ -1,7 +1,6 @@
 import React from 'react';
 import closeIcon from '../images/Close-Icon.svg';
 
-
 function ImagePopup(props) {
     // console.log(props.card)
     return (
