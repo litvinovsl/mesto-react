@@ -14,7 +14,7 @@ function Main(props) {
     React.useEffect(() => {
         api.getPageData()
             .then(([cardsData, userData]) => {
-                console.log(cardsData);
+                // console.log(cardsData);
                 setUserName(userData.name);
                 setUserDescription(userData.about);
                 setUserAvatar(userData.avatar);
@@ -49,7 +49,7 @@ function Main(props) {
 
             <section className="elements">
                 {cards.map((card) => (
-                    <Card key={card._id} props={card} />
+                    <Card key={card._id} props={card} card={card} onCardClick={props.onCardClick} />
                 ))}
             </section>
 
