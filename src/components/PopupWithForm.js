@@ -13,7 +13,7 @@ function PopupWithForm(props) {
                 <form id="form-profile" className="popup__form" name={props.name} action="#" noValidate>
                     <fieldset className="popup__inputs">
                         {props.children}
-                        <button className="popup__button-save" type="submit">Сохранить</button>
+                        <button className="popup__button-save" type="submit">{props.buttonText}</button>
                     </fieldset>
                 </form>
             </div>
