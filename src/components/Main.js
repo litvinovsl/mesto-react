@@ -9,7 +9,6 @@ function Main(props) {
 
     const currentUser = React.useContext(CurrentUserContext);
 
-    // console.log('user: ', currentUser)
     const [cards, setCards] = React.useState([]);
 
     React.useEffect(() => {
@@ -21,6 +20,29 @@ function Main(props) {
                 console.log(err);
             })
     }, [])
+
+    // console.log(cards)
+
+
+
+    function handleCardLike(card) {
+        // Снова проверяем, есть ли уже лайк на этой карточке
+        const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+        if (isLiked) {
+            api.deleteCardLike(card._id)
+              .then((data) => {
+                  setCards((state) => state.map((c) => c._id === card._id ? data : c));
+              })
+              .catch((err) => { console.error(err); });
+          } else {
+            api.addCardLike(card._id)
+              .then((data) => {
+                setCards((state) => state.map((c) => c._id === card._id ? data : c));
+              })
+              .catch((err) => { console.error(err); });
+          }
+    }
 
     return (
         <main className="content">
@@ -46,7 +68,7 @@ function Main(props) {
 
             <section className="elements">
                 {cards.map((card) => (
-                    <Card key={card._id} props={card} card={card} onCardClick={props.onCardClick} />
+                    <Card onCardLike={handleCardLike} key={card._id} props={card} card={card} onCardClick={props.onCardClick} />
                 ))}
             </section>
 
