@@ -86,7 +86,7 @@ class Api {
           method: 'DELETE',
           headers: this._headers,
         }).then(this._checkReply);
-      }
+    }
 
     getPageData(){
         return Promise.all([this._getInitialCards(), this.getUserInfo()]);
