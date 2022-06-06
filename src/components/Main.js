@@ -3,7 +3,7 @@ import api from '../utils/Api.js';
 import Card from './Card'
 import buttomEdit from '../images/buttom-edit.svg';
 import buttomPlus from '../images/buttom-plus.svg';
-import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main(props) {
 
