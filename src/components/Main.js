@@ -3,21 +3,18 @@ import api from '../utils/Api.js';
 import Card from './Card'
 import buttomEdit from '../images/buttom-edit.svg';
 import buttomPlus from '../images/buttom-plus.svg';
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 function Main(props) {
 
-    const [userName, setUserName] = React.useState('Сергей');
-    const [userDescription, setUserDescription] = React.useState('студент');
-    const [userAvatar, setUserAvatar] = React.useState('https://st.shanti-shanti.com/p/3b7bc1f6d5858c911044adf913f537b0.jpg');
+    const currentUser = React.useContext(CurrentUserContext);
+
+    // console.log('user: ', currentUser)
     const [cards, setCards] = React.useState([]);
 
     React.useEffect(() => {
         api.getPageData()
             .then(([cardsData, userData]) => {
-                // console.log(cardsData);
-                setUserName(userData.name);
-                setUserDescription(userData.about);
-                setUserAvatar(userData.avatar);
                 setCards(cardsData);
             })
             .catch(err => {
@@ -30,16 +27,16 @@ function Main(props) {
             <section className="profile">
                 <div className="profile__info">
                     <button className="profile__avatar-button" onClick={props.onEditAvatar} type="button" title="Изменить аватар">
-                        <img className="profile__avatar" src={userAvatar} alt="аватар" />
+                        <img className="profile__avatar" src={currentUser.avatar} alt="аватар" />
                     </button>
                     <div className="profile__user">
                         <div className="profile__user-name-edit">
-                            <h1 className="profile__username">{userName}</h1>
+                            <h1 className="profile__username">{currentUser.name}</h1>
                             <button onClick={props.onEditProfile} type="button" className="profile__edit-butt">
                                 <img className="profile__edit-butt-img" src={buttomEdit} alt="редактировать" />
                             </button>
                         </div>
-                        <p className="profile__about-user">{userDescription}</p>
+                        <p className="profile__about-user">{currentUser.about}</p>
                     </div>
                 </div>
                 <button onClick={props.onAddPlace} type="button" className="profile__add-button">
