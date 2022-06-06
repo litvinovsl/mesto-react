@@ -20,7 +20,7 @@ class Api {
         }).then(this._checkReply);
     }
 
-    _getUserInfo() {
+    getUserInfo() {
         const newUrl = this._baseUrl + '/users/me';
         return fetch(newUrl, {
             headers: this._headers,
@@ -89,7 +89,7 @@ class Api {
       }
 
     getPageData(){
-        return Promise.all([this._getInitialCards(), this._getUserInfo()]);
+        return Promise.all([this._getInitialCards(), this.getUserInfo()]);
     }
 
     // другие методы работы с API
