@@ -19,6 +19,8 @@ function App() {
     name: "",
     about: ""
   });
+  const [cards, setCards] = React.useState([]);
+
 
   React.useEffect(() => {
     api.getUserInfo()
@@ -53,20 +55,65 @@ function App() {
     setSelectedCard(null);
   }
 
-  function handleUpdateUser({name, about}){
-    api.updateUserInfo({name, about})
-    .finally(() => {
-      closeAllPopups();
-    });
+  function handleUpdateUser({ name, about }) {
+    api.updateUserInfo({ name, about })
+      .finally(() => {
+        closeAllPopups();
+      });
     // api.updateUserInfo({})
   }
 
-  function handleUpdateAvatar({avatar}){
+  function handleUpdateAvatar({ avatar }) {
     api.updateProfileAvatar({ avatar })
-    .finally(() => {
-      closeAllPopups();
-    });
+      .finally(() => {
+        closeAllPopups();
+      });
     // console.log('ava')
+  }
+
+
+
+
+  React.useEffect(() => {
+    api.getPageData()
+      .then(([cardsData, userData]) => {
+        setCards(cardsData);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }, [])
+
+  // console.log(cards)
+
+
+
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    if (isLiked) {
+      api.deleteCardLike(card._id)
+        .then((data) => {
+          setCards((state) => state.map((c) => c._id === card._id ? data : c));
+        })
+        .catch((err) => { console.error(err); });
+    } else {
+      api.addCardLike(card._id)
+        .then((data) => {
+          setCards((state) => state.map((c) => c._id === card._id ? data : c));
+        })
+        .catch((err) => { console.error(err); });
+    }
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+      .then((data) => {
+        console.log('del')
+        setCards((state) => state.filter((c) => c._id !== card._id && c));
+      })
+      .catch((err) => { console.error(err); })
   }
 
   return (
@@ -77,15 +124,18 @@ function App() {
           onCardClick={setSelectedCard}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick} />
+          onEditAvatar={handleEditAvatarClick}
+          onCardDelete={handleCardDelete}
+          onCardLike={handleCardLike}
+          cards={cards} />
         <Footer />
         <ImagePopup
           card={selectedCard}
           onClose={closeAllPopups} />
-        <EditProfilePopup 
-          isOpen={isEditProfilePopupOpen} 
-          onClose={closeAllPopups} 
-          onUpdateUser={handleUpdateUser}/>
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser} />
         <EditAvatarPopup
           onUpdateAvatar={handleUpdateAvatar}
           isOpen={isEditAvatarPopupOpen}
