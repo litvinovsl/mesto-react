@@ -7,6 +7,7 @@ import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
+import AddPlacePopup from './AddPlacePopup.js';
 import ImagePopup from './ImagePopup';
 
 function App() {
@@ -140,6 +141,10 @@ function App() {
           onUpdateAvatar={handleUpdateAvatar}
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups} />
+        <AddPlacePopup
+          // onUpdateAvatar={handleUpdateAvatar}
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups} />
         {/* <PopupWithForm
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
@@ -161,7 +166,7 @@ function App() {
           <input id="popup__avatar-link" type="url" className="popup__input" name="link" placeholder="Ссылка на картинку" required />
           <span className="popup__avatar-link-error popup__input-error"></span>
         </PopupWithForm> */}
-        <PopupWithForm
+        {/* <PopupWithForm
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           buttonText="Сохранить"
@@ -171,7 +176,7 @@ function App() {
           <span className="popup__place-name-error popup__input-error"></span>
           <input id="popup__place-link" type="url" className="popup__input" name="link" placeholder="Ссылка на картинку" required />
           <span className="popup__place-link-error popup__input-error"></span>
-        </PopupWithForm>
+        </PopupWithForm> */}
 
 
       </div>
