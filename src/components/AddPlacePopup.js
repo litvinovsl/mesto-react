@@ -22,7 +22,6 @@ function AddPlacePopup(props) {
 
     }
 
-
     return (
         <PopupWithForm
             isOpen={props.isOpen}
