@@ -1,22 +1,39 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function AddPlacePopup(props) {
+    const [name, setName] = React.useState('');
+    const [link, setLink] = React.useState('');
 
-    const currentUser = React.useContext(CurrentUserContext);
+    function handleNameChange(e) {
+        setName(e.target.value);
+    }
+
+    function handleLinkChange(e) {
+        setLink(e.target.value);
+    }
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        props.onSubmit({
+            name: name,
+            link: link
+        });
+
+    }
 
 
     return (
         <PopupWithForm
             isOpen={props.isOpen}
             onClose={props.onClose}
+            onSubmit={handleSubmit}
             buttonText="Сохранить"
             name="popup-create"
             title="Новое место" >
-            <input id="popup__place-name" type="text" className="popup__input" name="name" placeholder="Название" minLength={2} maxLength={30} required />
+            <input id="popup__place-name" value={name} onChange={handleNameChange} type="text" className="popup__input" name="name" placeholder="Название" minLength={2} maxLength={30} required />
             <span className="popup__place-name-error popup__input-error"></span>
-            <input id="popup__place-link" type="url" className="popup__input" name="link" placeholder="Ссылка на картинку" required />
+            <input id="popup__place-link" value={link} onChange={handleLinkChange} type="url" className="popup__input" name="link" placeholder="Ссылка на картинку" required />
             <span className="popup__place-link-error popup__input-error"></span>
         </PopupWithForm>
     );

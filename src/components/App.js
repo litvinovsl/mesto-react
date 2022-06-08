@@ -72,6 +72,16 @@ function App() {
     // console.log('ava')
   }
 
+  function handleAddPlaceSubmit(data){
+    api.addNewCard(data)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+      })
+      .finally(() => {
+        closeAllPopups();
+      });
+  }
+
 
 
 
@@ -85,12 +95,7 @@ function App() {
       })
   }, [])
 
-  // console.log(cards)
-
-
-
   function handleCardLike(card) {
-    // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     if (isLiked) {
@@ -141,8 +146,8 @@ function App() {
           onUpdateAvatar={handleUpdateAvatar}
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups} />
-        <AddPlacePopup
-          // onUpdateAvatar={handleUpdateAvatar}
+        <AddPlacePopup  
+          onSubmit={handleAddPlaceSubmit}
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups} />
         {/* <PopupWithForm
