@@ -61,6 +61,14 @@ function App() {
     // api.updateUserInfo({})
   }
 
+  function handleUpdateAvatar({avatar}){
+    api.updateProfileAvatar({ avatar })
+    .finally(() => {
+      closeAllPopups();
+    });
+    // console.log('ava')
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
@@ -79,6 +87,7 @@ function App() {
           onClose={closeAllPopups} 
           onUpdateUser={handleUpdateUser}/>
         <EditAvatarPopup
+          onUpdateAvatar={handleUpdateAvatar}
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups} />
         {/* <PopupWithForm
