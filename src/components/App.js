@@ -5,6 +5,7 @@ import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
+import EditProfilePopup from './EditProfilePopup.js';
 import ImagePopup from './ImagePopup';
 
 function App() {
@@ -64,7 +65,8 @@ function App() {
         <ImagePopup
           card={selectedCard}
           onClose={closeAllPopups} />
-        <PopupWithForm
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+        {/* <PopupWithForm
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           buttonText="Сохранить"
@@ -74,7 +76,7 @@ function App() {
           <span className="popup__username-error popup__input-error"></span>
           <input id="popup__user-about" type="text" className="popup__input" name="about" placeholder="О себе.." required minLength={2} maxLength={40} />
           <span className="popup__user-about-error popup__input-error"></span>
-        </PopupWithForm>
+        </PopupWithForm> */}
         <PopupWithForm
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
