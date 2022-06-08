@@ -1,6 +1,6 @@
 import React from 'react';
 import api from '../utils/Api.js';
-import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
@@ -52,6 +52,14 @@ function App() {
     setSelectedCard(null);
   }
 
+  function handleUpdateUser({name, about}){
+    api.updateUserInfo({name, about})
+    .finally(() => {
+      closeAllPopups();
+    });
+    // api.updateUserInfo({})
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
@@ -65,7 +73,11 @@ function App() {
         <ImagePopup
           card={selectedCard}
           onClose={closeAllPopups} />
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+        <EditProfilePopup 
+          isOpen={isEditProfilePopupOpen} 
+          onClose={closeAllPopups} 
+          onUpdateUser={handleUpdateUser}/>
+
         {/* <PopupWithForm
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
@@ -77,6 +89,7 @@ function App() {
           <input id="popup__user-about" type="text" className="popup__input" name="about" placeholder="О себе.." required minLength={2} maxLength={40} />
           <span className="popup__user-about-error popup__input-error"></span>
         </PopupWithForm> */}
+
         <PopupWithForm
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
