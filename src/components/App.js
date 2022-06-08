@@ -6,6 +6,7 @@ import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
 import ImagePopup from './ImagePopup';
 
 function App() {
@@ -77,7 +78,9 @@ function App() {
           isOpen={isEditProfilePopupOpen} 
           onClose={closeAllPopups} 
           onUpdateUser={handleUpdateUser}/>
-
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups} />
         {/* <PopupWithForm
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
@@ -90,7 +93,7 @@ function App() {
           <span className="popup__user-about-error popup__input-error"></span>
         </PopupWithForm> */}
 
-        <PopupWithForm
+        {/* <PopupWithForm
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           buttonText="Изменить"
@@ -98,7 +101,7 @@ function App() {
           title="Обновить аватар" >
           <input id="popup__avatar-link" type="url" className="popup__input" name="link" placeholder="Ссылка на картинку" required />
           <span className="popup__avatar-link-error popup__input-error"></span>
-        </PopupWithForm>
+        </PopupWithForm> */}
         <PopupWithForm
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
